@@ -8,7 +8,7 @@ Original file is located at
 """
 
 # ============================================================
-# Exercice 1 – Bonjour, utilisateur !
+# Exercice 1 – Bonjour, utilisateur  ----
 # Description : Demander à l'utilisateur son prénom et son âge, puis afficher un message de bienvenue personnalisé.
 # ============================================================
 # Solution
@@ -18,7 +18,7 @@ print(f"Bonjour {prenom}, vous avez {age} ans.")
 
 
 # ============================================================
-# Exercice 2 – Opérations simples
+# Exercice 2 – Opérations simples ----
 # Description : Stocker deux nombres dans des variables, puis afficher leur somme, leur produit, leur division entière et réelle.
 # ============================================================
 # Solution
@@ -31,7 +31,7 @@ print("Division réelle :", a / b)
 
 
 # ============================================================
-# Exercice 3 – Pair ou impair
+# Exercice 3 – Pair ou impair ----
 # Description : Demander un nombre à l’utilisateur et afficher s’il est pair ou impair.
 # ============================================================
 # Solution
@@ -43,7 +43,7 @@ else:
 
 
 # ============================================================
-# Exercice 4 – Le plus grand de trois
+# Exercice 4 – Le plus grand de trois ----
 # Description : Demander trois nombres à l’utilisateur et afficher le plus grand.
 # ============================================================
 # Solution 1 – avec conditions
@@ -62,7 +62,7 @@ print("Le plus grand est :", max(a, b, c))
 
 
 # ============================================================
-# Exercice 5 – Compter jusqu’à N
+# Exercice 5 – Compter jusqu’à N ----
 # Description : Demander un entier n et afficher tous les nombres de 1 à n.
 # ============================================================
 # Solution
@@ -72,7 +72,7 @@ for i in range(1, n+1):
 
 
 # ============================================================
-# Exercice 6 – Jeu du mot de passe
+# Exercice 6 – Jeu du mot de passe ----
 # Description : Tant que l’utilisateur ne tape pas 'python123', lui redemander un mot de passe.
 # ============================================================
 # Solution
@@ -83,7 +83,7 @@ print("Accès autorisé !")
 
 
 # ============================================================
-# Exercice 7 – Table de multiplication
+# Exercice 7 – Table de multiplication ----
 # Description : Créer une fonction affiche_table(n) qui affiche la table de multiplication de n de 1 à 10.
 # ============================================================
 # Solution
@@ -96,7 +96,7 @@ affiche_table(5)
 
 
 # ============================================================
-# Exercice 8 – Moyenne d’une liste
+# Exercice 8 – Moyenne d’une liste ----
 # Description : Créer une fonction moyenne(notes) qui retourne la moyenne d’une liste de notes.
 # ============================================================
 # Solution
@@ -108,7 +108,7 @@ print(moyenne([12, 15, 14]))
 
 
 # ============================================================
-# Exercice 9 – Compter les voyelles
+# Exercice 9 – Compter les voyelles ----
 # Description : Créer une fonction compte_voyelles(texte) qui retourne le nombre de voyelles dans une chaîne.
 # ============================================================
 # Solution
@@ -125,7 +125,7 @@ print(compte_voyelles("Bonjour tout le monde"))
 
 
 # ============================================================
-# Exercice 10 – Carnet de contacts
+# Exercice 10 – Carnet de contacts ----
 # Description : Créer un dictionnaire contacts et permettre d'ajouter des noms et numéros.
 # ============================================================
 # Solution
@@ -143,7 +143,7 @@ for nom, numero in contacts.items():
 
 
 # ============================================================
-# Exercice 11 – Statistiques de notes
+# Exercice 11 – Statistiques de notes ----
 # Description : Créer un dictionnaire d’élèves avec leurs notes. Calculer la moyenne par élève et afficher l’élève avec la meilleure moyenne.
 # ============================================================
 # Solution
@@ -167,7 +167,7 @@ print(f"Le meilleur élève est {meilleur_eleve} avec {meilleure_moyenne:.2f} de
 
 
 # ============================================================
-# Exercice 12 – Dé aléatoire
+# Exercice 12 – Dé aléatoire ----
 # Description : Simuler un lancer de dé (1 à 6) jusqu’à obtenir un 6. Compter le nombre de lancers.
 # ============================================================
 # Solution
@@ -185,7 +185,7 @@ print(f"Nombre de lancers nécessaires : {compteur}")
 
 
 # ============================================================
-# Exercice 13 – Devine le nombre
+# Exercice 13 – Devine le nombre ----
 # Description : Choisir un nombre aléatoire entre 1 et 100. L’utilisateur a 10 tentatives pour le deviner avec des indices.
 # ============================================================
 # Solution
@@ -209,7 +209,7 @@ else:
 
 
 # ============================================================
-# Exercice 14 – Analyse de texte
+# Exercice 14 – Analyse de texte ----
 # Description : Demander une phrase à l’utilisateur, puis afficher nombre de mots, mot le plus long, fréquence des lettres.
 # ============================================================
 # Solution
