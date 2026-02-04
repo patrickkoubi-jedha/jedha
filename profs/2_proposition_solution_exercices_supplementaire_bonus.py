@@ -172,6 +172,26 @@ print(f"Le meilleur élève est {meilleur_eleve} avec {meilleure_moyenne:.2f} de
 # ============================================================
 # Solution
 import random
+class SimuLancerDe():
+    def __init__(self):
+        self.compteur = 0
+        self.resultat = 0
+        self.succes = False
+    def lancer(self):
+        self.resultat = random.randint(1,6)
+        self.compteur += 1
+        print(f"Lancer {self.compteur}, resultat : {self.resultat}")
+        if self.resultat == 6:
+            self.succes = True
+    def jouer(self):
+        while not self.succes:
+            self.lancer()
+        print(f"Nombre de lancers effectués : {self.compteur}")
+
+uneSimu=SimuLancerDe()
+uneSimu.jouer()
+# Solution alternative simple
+import random
 
 compteur = 0
 resultat = 0
@@ -189,6 +209,36 @@ print(f"Nombre de lancers nécessaires : {compteur}")
 # Description : Choisir un nombre aléatoire entre 1 et 100. L’utilisateur a 10 tentatives pour le deviner avec des indices.
 # ============================================================
 # Solution
+import random
+class SimuDevineNb():
+    def __init__(self):
+        self.nb_essaye = 0
+        self.nb_aleatoire = random.randint(1,100)
+        self.tentatives_restantes = 10
+        self.succes = False
+    def deviner(self):
+        print(f"Il vous reste {self.tentatives_restantes} tentatives.")
+        self.nb_essaye = int(input("Devinez le nombre (entre 1 et 100) : "))
+        self.tentatives_restantes -= 1
+        self.succes = self.nb_aleatoire == self.nb_essaye
+    def jouer(self):
+        while not self.succes and self.tentatives_restantes > 0:
+            self.deviner()
+            if self.succes:
+                print("Bravo ! Vous avez deviné le nombre.")
+            else:
+                if self.nb_essaye < self.nb_aleatoire:
+                    print("Trop petit.")
+                else:
+                    print("Trop grand.")
+        if self.tentatives_restantes == 0:
+            print(f"Dommage, le nombre était {self.nb_aleatoire}.")
+
+uneSimu=SimuDevineNb()
+uneSimu.jouer()
+
+# Solution alternative simple
+
 import random
 
 secret = random.randint(1, 100)
@@ -222,6 +272,19 @@ print("Nombre de mots :", len(mots))
 # Mot le plus long
 mot_plus_long = max(mots, key=len)
 print("Mot le plus long :", mot_plus_long)
+        #EXEMPLES D'UTILISATION DE max() AVEC KEY
+# Personne la plus âgée
+personnes = [("Alice", 34), ("Bob", 19), ("Charlie", 45)]
+plus_aged = max(personnes, key=lambda p: p[1])     # → ('Charlie', 45)
+
+# Produit le plus cher
+produits = {"stylo": 1.2, "cahier": 3.5, "sac": 29.9}
+plus_cher = max(produits, key=produits.get)        # → "sac"
+
+# Fichier le plus récent (par date de modification)
+import os
+fichiers = ["a.txt", "b.py", "readme.md"]
+plus_recente = max(fichiers, key=os.path.getmtime)
 
 # Fréquence des lettres
 frequences = {}
