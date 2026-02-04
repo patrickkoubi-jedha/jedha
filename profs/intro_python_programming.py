@@ -379,7 +379,7 @@ elem = list_1.pop()
 print(elem)
 print(list_1)
 
-"""## Comprehension de liste"""
+"""### Comprehension de liste"""
 
 liste = []
 for i in range(1,11):
@@ -410,3 +410,177 @@ for i in range(1,11):
   else:
     liste_exemple2 += ["chiffre impair"]
 print(liste_exemple2)
+
+"""## Les dictionnaires
+
+### Créer / Instancier un dictionnaire
+
+C'est une structure de donnée, qui permet de stocker des informations (comme la liste).
+Cependant au lieu de les stocker sous un certain "ordre" (premier element, deuxieme element....), on les stock sous une CLE (tuple, chaine de caractere, int). Tres souvent c'est une chaine de caractere
+
+```
+dictionnaire = {cle1: element1, cle2: element2, ...}
+```
+Exemple 1:
+```
+dic1 = {'first_name': 'Antoine', 'last_name':'Dupont'}
+```
+Exemple 2:
+```
+dic1 = {0: 'Antoine', 12:'Dupont'}
+```
+Exemple 3:
+```
+dic1 = {"cle1": ['Antoine','12'], 12:['Dupont',[12]]}
+```
+Exemple 4:
+```
+dic1 = {0: 'Antoine', 12:'Dupont}
+```
+"""
+
+dic1 = {'first_name': 'Antoine', 'last_name':'Dupont'}
+dic1 = {0: 'Antoine', 12:'Dupont'}
+dic1 = {"cle1": ['Antoine','12'], 12:['Dupont',[12]]}
+dic1 = {0: 'Antoine', 12:'Dupont'}
+
+"""### Modifier un dictionnaire"""
+
+dic1 = { # Bonus : quand on voutre (, [ ,{ , Python considère qu'on est sur la meme ligne jusquà ce que ce ), ], } soit fermé
+    'first_name': 'Antoine',
+    'last_name':"Dupont"
+       }
+
+
+# Modifier un element
+dic1["first_name"] = "Arthur"
+
+print("dic1",dic1)
+
+
+#Modifier un element 2 : cas particulier liste
+dic2 = {'liste_de_valeurs':[1,4,21]}
+
+# Methode 1 : direct (on reparlera de cette technique en fin de notebook dans la section ## Copie de listes
+dic2['liste_de_valeurs'][1] = 9999
+
+# Methode 2 : on "colle" a la technique de base
+liste = dic2['liste_de_valeurs']
+liste[1] = 999999
+dic2["liste_de_valeurs"] = liste
+
+# Modifier un element 3
+dic3 = {'liste_de_valeurs':[1,4,21]}
+dic3['liste_de_valeurs'].append("Antoine")
+print(dic3)
+
+# Methode 2 : dic3['liste_de_valeurs'] = dic3['liste_de_valeurs'] + ['Antoine]
+
+# Ajouter un element sous une cle
+dic = {'first_name': 'Antoine'}
+dic["age"]=30
+print(dic)
+
+# Supprimer une cle + valeur
+
+dic1 = {'first_name': 'Antoine','last_name':"Dupont"}
+
+del(dic1["first_name"])
+print(dic1)
+
+"""###  Boucler sur des dictionnaires
+
+```for it in iterator```
+
+On peut boucler sur un dictionnaires, en récupérant :    
+- la "liste" des clés : dict.keys()
+- la "liste" des valeurs : dict.values()
+"""
+
+# Boucler sur les clés :
+dic1 = {'first_name': 'Antoine','last_name':"Dupont"}
+for key in dic1.keys():
+  print(f"ma cle vaut {key}")
+  print(f"ma valeur vaut {dic1[key]}")
+  print("_____________________________")
+
+# Boucler sur les valeurs :
+dic1 = {'first_name': 'Antoine','last_name':"Dupont"}
+for val in dic1.values():
+  print(f"ma valeur vaut {val}")
+  print("_____________________________")
+
+# Bonus : on peut boucler sur cle + valeur en meme temps
+
+dic1 = {'first_name': 'Antoine','last_name':"Dupont"}
+for key,value in dic1.items():
+  print(key,value)
+  print("___________________________")
+
+"""### Les tuples
+
+C'est une liste, sauf que :    
+- on utilise pas des [] mais des ()
+- c'est un type immutable : quand on le créé, on ne peut PLUS changer ses elements
+"""
+
+tple = (1,3,12,14,2)
+print(tple)
+
+tple[2]
+
+tple[:2]
+
+# Seule difference : je ne peux pas changer les elements
+
+tple[1] = 99999
+
+""" ## Bonus : copies de listes"""
+
+# Quand on manipule une copie de varialbe
+
+variable_1 = 10
+variable_2 = variable_1
+variable_2 += 3
+print(f"La variable_1 vaut : {variable_1} et la variable_2 vaut : {variable_2}")
+
+# ATTENTION: Quand on manipule une copie de liste
+# Si vous modifiez la SHALLOW COPIE (copie de surface) alors ca modifie l'ORIGINAL
+
+liste1 = [10,12,41,1]
+liste2 = liste1
+liste2[0] = 99999999
+print(f"La liste1 vaut : {liste1} et la liste2 vaut : {liste2}")
+
+# ATTENTION: Quand on manipule une copie de liste
+# Si vous voulez modifier la copie sans modifier l'originale, faire une DEEP COPY
+# Methode 1
+liste1 = [10,12,41,1]
+liste2 = liste1[:]
+liste2[0] = 99999999
+print(f"La liste1 vaut : {liste1} et la liste2 vaut : {liste2}")
+
+# ATTENTION: Quand on manipule une copie de liste
+# Si vous voulez modifier la copie sans modifier l'originale, faire une DEEP COPY
+# Methode 2
+liste1 = [10,12,41,1]
+liste2 = liste1.copy()
+liste2[0] = 99999999
+print(f"La liste1 vaut : {liste1} et la liste2 vaut : {liste2}")
+
+"""## Ensembles
+
+Un ensemble c'est une structure :    
+- pas d'ordre
+- pas de doublon
+"""
+
+ens = {1,3,21}
+ens
+
+ens = {1,3,21,1,3}
+ens
+
+liste = [1,31,41,1,21,1,31,55,32]
+ens = set(liste)
+ens
