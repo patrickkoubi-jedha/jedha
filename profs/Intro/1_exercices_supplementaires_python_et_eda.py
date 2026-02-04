@@ -410,8 +410,7 @@ nombres = [1, 2, 3, 4]
 
 # Ex4
 # ajoute_dix = [x + 10 for x in nombres]
-# print(ajoute_dix)
-
+# print(ajoute_dix)  
 # Ex5
 # matrice = [[i * j for j in range(3)] for i in range(3)]
 # print(matrice)
