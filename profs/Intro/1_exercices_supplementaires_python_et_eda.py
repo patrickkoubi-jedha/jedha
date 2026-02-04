@@ -406,7 +406,7 @@ nombres = [1, 2, 3, 4]
 
 # Ex3
 # longs_mots = [mot for mot in mots if len(mot) > 3]
-# print(longs_mots)
+# print(longs_mots) 
 
 # Ex4
 # ajoute_dix = [x + 10 for x in nombres]
