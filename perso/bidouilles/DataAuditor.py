@@ -165,33 +165,68 @@ class DataAuditor:
     def print_report(self) -> None:
         """
         Affiche un rapport textuel clair et structuré.
-
-        Exemple d'appel :
-        ----------------
-        audit = DataAuditor(df)
-        audit.print_report()
+        Version améliorée avec détail approfondi sur les valeurs manquantes.
         """
         r = self.report
 
-        print("\n" + "═" * 80)
-        print(" AUDIT QUALITÉ DATASET ".center(80))
-        print("═" * 80)
+        print("\n" + "═" * 90)
+        print(" AUDIT QUALITÉ DATASET ".center(90))
+        print("═" * 90)
 
-        print(f"\nForme : {r['shape']} lignes × colonnes")
+        print(f"\nForme : {r['shape'][0]:,} lignes × {r['shape'][1]:,} colonnes")
         print("Types principaux :")
         for t, cols in r['columns_by_type'].items():
             if cols:
-                print(f"  • {t:<12} {len(cols):3d} colonnes")
+                print(f"  • {t:<12} {len(cols):4d} colonnes")
 
-        if r['missing_values']['total'] > 0:
-            print("\nValeurs manquantes :")
-            print(f"  Total : {r['missing_values']['total']} ({r['missing_values']['pct_total']:.1f} %)")
-            if r['missing_values']['worst_column']:
-                print(f"  Pire colonne : {r['missing_values']['worst_column']} "
-                      f"({r['missing_values']['worst_count']} NaN)")
+        # ────────────────────────────────────────────────────────
+        # PARTIE VALEURS MANQUANTES – VERSION AMÉLIORÉE
+        # ────────────────────────────────────────────────────────
+        print("\n" + "─" * 90)
+        print(" VALEURS MANQUANTES – DÉTAIL ".center(90))
+        print("─" * 90)
+
+        mv = r['missing_values']
+
+        if mv['total'] == 0:
+            print("  Aucune valeur manquante détectée ✓")
+        else:
+            total_rows = r['shape'][0]
+            print(f"  Total cellules manquantes : {mv['total']:,}  ({mv['pct_total']:.2f} % des cellules)")
+            print(f"  Lignes avec au moins 1 NaN    : {self.df.isna().any(axis=1).sum():,}  "
+                f"({self.df.isna().any(axis=1).mean()*100:.1f} % des lignes)")
+            print(f"  Lignes complètement vides    : {self.df.isna().all(axis=1).sum():,}  "
+                f"({self.df.isna().all(axis=1).mean()*100:.1f} % des lignes)")
+            print(f"  Lignes ≥ 50 % NaN            : {(self.df.isna().mean(axis=1) >= 0.5).sum():,}  "
+                f"({(self.df.isna().mean(axis=1) >= 0.5).mean()*100:.1f} % des lignes)")
+
+            if mv['by_column']:
+                print("\n  Top 15 colonnes les plus touchées :")
+                print("  " + "─" * 86)
+                print("  {:<24} {:>10} {:>12} {:>10}".format(
+                    "Colonne", "NaN count", "Pourcentage", "Non-NaN"))
+                print("  " + "─" * 86)
+
+                # On trie par nombre de NaN décroissant
+                sorted_missing = sorted(mv['by_column'].items(), key=lambda x: x[1], reverse=True)
+
+                for col, cnt in sorted_missing[:15]:
+                    pct = (cnt / total_rows) * 100
+                    non_nan = total_rows - cnt
+                    print(f"  {col:<24} {cnt:10,} {pct:11.2f}% {non_nan:10,}")
+
+                if len(sorted_missing) > 15:
+                    print(f"  ... et {len(sorted_missing)-15} autres colonnes avec NaN")
+
+        # ────────────────────────────────────────────────────────
+        # Le reste du rapport (doublons, outliers, etc.)
+        # ────────────────────────────────────────────────────────
+        print("\n" + "─" * 90)
+        print(" AUTRES CONTRÔLES ".center(90))
+        print("─" * 90)
 
         print("\nDoublons & constantes :")
-        print(f"  Doublons exacts : {r['duplicates']['count']} ({r['duplicates']['pct']:.1f} %)")
+        print(f"  Doublons exacts : {r['duplicates']['count']:,} ({r['duplicates']['pct']:.2f} %)")
         if r['constants']:
             print(f"  Colonnes constantes : {', '.join(r['constants'])}")
         if r['low_variance']:
@@ -201,21 +236,21 @@ class DataAuditor:
             print("\nOutliers détectés (IQR 1.5× & Z>3) :")
             for col, info in r['outliers'].items():
                 if info['iqr_count'] > 0 or info['z3_count'] > 0:
-                    print(f"  • {col:<18} IQR: {info['iqr_count']:3d} | Z>3: {info['z3_count']:3d} "
-                          f"| extrêmes: {info['min_val']:.2f} → {info['max_val']:.2f}")
+                    print(f"  • {col:<18} IQR: {info['iqr_count']:5,} | Z>3: {info['z3_count']:5,} "
+                        f"| extrêmes: {info['min_val']:.2f} → {info['max_val']:.2f}")
 
         if r['high_cardinality']:
             print("\nHaute cardinalité (souvent IDs) :")
             for col, info in r['high_cardinality'].items():
-                print(f"  • {col:<20} {info['unique_count']} uniques ({info['ratio']*100:.1f} %)")
+                print(f"  • {col:<24} {info['unique_count']:,} uniques ({info['ratio']*100:.1f} %)")
 
         if r['string_problems']:
             print("\nProblèmes texte :")
             for col, iss in r['string_problems'].items():
-                print(f"  • {col:<20} vides: {iss['empty_or_whitespace']:3d} | "
-                      f"très longs (>200): {iss['very_long_200']:3d}")
+                print(f"  • {col:<24} vides: {iss['empty_or_whitespace']:5,} | "
+                    f"très longs (>200): {iss['very_long_200']:5,}")
 
-        print("\n" + "═" * 80)
+        print("\n" + "═" * 90)
 
 
 # =============================================================================
