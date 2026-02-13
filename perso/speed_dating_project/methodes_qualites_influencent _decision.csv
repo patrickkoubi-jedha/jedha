@@ -1,0 +1,5 @@
+Niveau,Méthode,Avantage pour débutant,Limite importante,À utiliser quand…,recommandation
+1,Corrélations (Pearson ou Spearman),Très facile à calculer et à interpréter,Ne contrôle pas les autres variables → résultats trompeurs,première idée rapide,OK pour commencer
+2,Régression logistique univariée (une variable à la fois),"Simple, montre l’effet brut de chaque critère","Ignore les corrélations entre attr, fun, etc.",classer rapidement les critères,Très utile en étape 2
+3,Régression logistique multivariée (toutes les variables ensemble),Contrôle les effets des autres variables → plus fiable,Un peu plus dur à interpréter au début,savoir « l’effet propre » de chaque critère,recommandé
+4,Random Forest ou XGBoost,"Pas besoin d’hypothèses, gère bien les non-linéarités","Moins interprétable, plus « boîte noire »",Tu veux la meilleure prédiction possible,Pas nécessaire ici

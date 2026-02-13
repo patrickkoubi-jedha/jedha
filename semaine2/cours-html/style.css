@@ -1,0 +1,15 @@
+h1 {
+                background-color: rgb(166, 158, 165);
+            }
+
+            .menu-item {
+                background-color: #abc3f8;
+                border-bottom: 1px solid rgb(174, 38, 38);
+                min-height: 5%;
+            }
+
+            #profile_pic {
+                border-radius: 50px;
+                border: 1px solid grey;
+                width: 20px;
+            }
