@@ -1,4 +1,4 @@
-# Scrapy settings for imdb_scraper project
+# Scrapy settings for booking_scrapper project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,24 +7,27 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "imdb_scraper"
+BOT_NAME = "booking_scrapper"
 
-SPIDER_MODULES = ["imdb_scraper.spiders"]
-NEWSPIDER_MODULE = "imdb_scraper.spiders"
+SPIDER_MODULES = ["booking_scrapper.spiders"]
+NEWSPIDER_MODULE = "booking_scrapper.spiders"
 
 ADDONS = {}
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+#USER_AGENT = "booking_scrapper (+http://www.yourdomain.com)"
+
+# Optionnel : user-agent réaliste + stealth
+USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
 # Concurrency and throttling settings
-CONCURRENT_REQUESTS = 4
-CONCURRENT_REQUESTS_PER_DOMAIN = 1
-DOWNLOAD_DELAY = 1.5
+#CONCURRENT_REQUESTS = 16
+CONCURRENT_REQUESTS_PER_DOMAIN = 2
+DOWNLOAD_DELAY = 15
 
 # Disable cookies (enabled by default)
 #COOKIES_ENABLED = False
@@ -41,14 +44,21 @@ DOWNLOAD_DELAY = 1.5
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    "imdb_scraper.middlewares.ImdbScraperSpiderMiddleware": 543,
+#    "booking_scrapper.middlewares.BookingScrapperSpiderMiddleware": 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "imdb_scraper.middlewares.ImdbScraperDownloaderMiddleware": 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+#    "booking_scrapper.middlewares.BookingScrapperDownloaderMiddleware": 543,
+     'scrapy_playwright.middleware.PlaywrightMiddleware': 543,
+}
+PLAYWRIGHT_DEFAULT_NAVIGATION_TIMEOUT = 60000  # 60s
+PLAYWRIGHT_LAUNCH_OPTIONS = {
+    "headless": True,
+    "args": ["--no-sandbox", "--disable-setuid-sandbox"],
+}
+
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -59,12 +69,12 @@ DOWNLOAD_DELAY = 1.5
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 #ITEM_PIPELINES = {
-#    "imdb_scraper.pipelines.ImdbScraperPipeline": 300,
+#    "booking_scrapper.pipelines.BookingScrapperPipeline": 300,
 #}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
-#AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_ENABLED = True
 # The initial download delay
 #AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
@@ -84,6 +94,7 @@ DOWNLOAD_DELAY = 1.5
 #HTTPCACHE_STORAGE = "scrapy.extensions.httpcache.FilesystemCacheStorage"
 
 # Set settings whose default value is deprecated to a future-proof value
+FEED_EXPORT_ENCODING = "utf-8"
 FEEDS = {
     'otput/imdb.json': {
         'format': 'json',
@@ -91,4 +102,3 @@ FEEDS = {
         'encoding': 'utf8',
     },
 }
-#FEED_EXPORT_ENCODING = "utf-8"
